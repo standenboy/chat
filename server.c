@@ -1,4 +1,3 @@
-#define _GNU_SOURCE
 #include<sys/socket.h>
 #include<fcntl.h>
 #include<stdio.h>
@@ -7,6 +6,7 @@
 #include<unistd.h>
 #include<errno.h>
 #include<string.h>
+#include<stdlib.h>
 
 #define MAXCLIENTS 10
 
@@ -19,7 +19,12 @@ int main(){
 		0
 	};
 
-	bind(sockfd, &address, sizeof(address));
+	if (bind(sockfd, &address, sizeof(address)) != 0){
+		perror("failed to bind port");
+		printf("is a server already running on this port\n");
+		exit(1);
+	}
+
 	fcntl(sockfd, F_SETFL, O_NONBLOCK);
 
 	printf("%d\n",errno);
@@ -37,7 +42,7 @@ int main(){
 		usleep(50000);
 		for (int i = 0; i < clientCount+1; i++){
 			if (connectedClients[i] == 0){
-				int tmp = accept4(sockfd, 0, 0, SOCK_NONBLOCK);
+				int tmp = accept(sockfd, 0, 0);
 				if (tmp != -1){
 					clients[i] = tmp;
 					printf("client connected\n");
