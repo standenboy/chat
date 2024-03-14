@@ -1,4 +1,4 @@
-# chat (work in progress name)
+# string chat 
 a very simple chat protocol writen in pure c
 
 run the server and then any number of clients (less than the number MAXCLIENTS defined in server.c)
