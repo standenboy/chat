@@ -50,6 +50,8 @@ int main(){
 			0
 		}
 	};
+	
+	char channel[15] = "#main";
 
 	while (0 == 0){
 		char buffer[256] = { 0 };
@@ -62,17 +64,26 @@ int main(){
 				send(sockfd, "/exit", 255, 0);
 				break;
 			}
+			else if (strcmp(buffer, "/join") == 0){
+				printf("channel to join: ");
+				scanf("%s", channel);
+				strcpy(channel, strtok(channel, "\n"));
+			}
 			else if (strcmp(buffer, "/nick\n") == 0){
 				printf("new nick: ");
 				scanf("%s", nick);
 			}else {
 				char tmp[256];
-				snprintf(tmp, 256, "%s: %s", strtok(nick, "\n"), buffer);
+				snprintf(tmp, 256, "%s:%s: %s", channel, strtok(nick, "\n"), buffer);
 				send(sockfd, tmp, 255, 0);
 			}
 		} if (fds[1].revents & POLLIN){
 			if (recv(sockfd, buffer, 255, 0) == 0){ break; }
-			printf("%s\n", strtok(buffer, "\n"));
+			char tmp[15];
+			strcpy(tmp, buffer);
+			if (strcmp(channel, strtok(tmp, ":")) == 0){
+				printf("%s\n", buffer);
+			}
 		}
 	}
 	close(sockfd);
