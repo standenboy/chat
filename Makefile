@@ -3,7 +3,7 @@ client:
 	cc client.c -o build/client
 server:
 	mkdir -p build/
-	cc server.c -o buildserver
+	cc server.c -o build/server
 all:
 	mkdir -p build/
 	cc client.c -o build/client
