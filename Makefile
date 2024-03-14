@@ -1,11 +1,14 @@
 client:
-	cc client.c -o client
+	mkdir -p build/
+	cc client.c -o build/client
 server:
-	cc server.c -o server
+	mkdir -p build/
+	cc server.c -o buildserver
 all:
-	cc client.c -o client
-	cc server.c -o server
+	mkdir -p build/
+	cc client.c -o build/client
+	cc server.c -o build/server
 clean:
-	rm -rf server
-	rm -rf client
+	rm -rf build/server
+	rm -rf build/client
 
