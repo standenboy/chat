@@ -65,9 +65,17 @@ int main(){
 				break;
 			}
 			else if (strcmp(buffer, "/join\n") == 0){
+				send(sockfd, "/exit", 255, 0);
+				close(sockfd);
 				printf("channel to join: ");
 				scanf("%s", channel);
 				strcpy(channel, strtok(channel, "\n"));
+				sockfd = socket(AF_INET, SOCK_STREAM, 0);
+				if (connect(sockfd, &address, sizeof(address)) != 0) { 
+					perror("call to connect failed"); 
+					close(sockfd);
+					return 1;
+				}
 			}
 			else if (strcmp(buffer, "/nick\n") == 0){
 				printf("new nick: ");

@@ -9,10 +9,10 @@ they call all message eachother and use the following commands
 
 `/exit` --- will safely disconnect the user from the server (ctrl+c does this too)
 
-`/join` --- will join a specific channel, default is main
+`/join` --- will join a specific channel, default is #main
 
 # todo
-message history
+message history // done!
 
 client config file
 

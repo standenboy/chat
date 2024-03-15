@@ -50,6 +50,13 @@ int main(){
 					fds[i].revents = 0;
 					connectedClients[i] = 1;
 					clientCount++;
+					FILE *fptr;
+					fptr = fopen("./log", "r");
+					char tosend[255];
+					while (fgets(tosend, 255, fptr) != NULL){
+						send(clients[i], strtok(tosend, "\n"), 255, 0);
+					}
+
 				}
 			}
 		}
@@ -71,6 +78,10 @@ int main(){
 						close(clients[i]);
 						printf("client %d disconnected\n", i);
 					} else {
+						FILE *log;
+						log = fopen("./log", "a");
+						fprintf(log, "%s\n", buffer);
+						fclose(log);
 						for (int j = 0; j < clientCount; j++){
 							if (j != i){
 								send(clients[j], buffer, 255, 0);
