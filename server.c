@@ -51,7 +51,8 @@ int main(){
 					connectedClients[i] = 1;
 					clientCount++;
 					FILE *fptr;
-					fptr = fopen("./log", "r");
+					fptr = fopen("./log", "a+");
+					fprintf(fptr, "\n");
 					char tosend[255];
 					while (fgets(tosend, 255, fptr) != NULL){
 						send(clients[i], strtok(tosend, "\n"), 255, 0);
