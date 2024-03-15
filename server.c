@@ -57,7 +57,7 @@ int main(){
 					while (fgets(tosend, 255, fptr) != NULL){
 						send(clients[i], strtok(tosend, "\n"), 255, 0);
 					}
-
+					fclose(fptr);
 				}
 			}
 		}
